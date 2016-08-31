@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Саша on 27.08.2016.
@@ -26,10 +23,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String listUsers(@ModelAttribute("filter") String filter, Model model){
+    @RequestMapping(value = "/users{filter}", method = RequestMethod.GET)
+    public String listUsers(@RequestParam("filter") String filter, Model model){
         model.addAttribute("user", new User());
         model.addAttribute("listUsers", userService.listUsers(filter));
+        return "/users";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String listUsers( Model model){
+        model.addAttribute("user", new User());
+        model.addAttribute("listUsers", userService.listUsers(""));
         return "/users";
     }
 

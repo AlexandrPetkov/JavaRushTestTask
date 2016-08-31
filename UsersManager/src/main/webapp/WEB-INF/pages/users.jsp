@@ -49,20 +49,12 @@
 <br/>
 
 <h1>Список юзеров</h1>
-<form:form action="/users" commandName="filter">
-    <table>
-        <tr>
-            <td>
-                <form:label path="filter">
-                    <spring:message text="Это фильтр. Сюда введите имя юзера:"/>
-                </form:label>
-            </td>
-            <td>
-                <form:input path="filter"/>
-            </td>
-        </tr>
-    </table>
-</form:form>
+<form action="/users{filter}">
+    Поиск: <input type="text" name="filter">
+    <input type="submit" value="Искать">
+</form>
+<a>Если хотите увидеть всех пользователей, нажмите "Искать" оставив поле "Поиск:" пустым</a>
+<br>
     <c:if test="${!empty listUsers}">
         <table class="tg">
             <tr>
